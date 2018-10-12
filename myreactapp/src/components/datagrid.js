@@ -7,7 +7,7 @@ import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
-import DataStore from './components/store.js';
+import DataStore from './data/datafile.js';
 
 const styles = theme => ({
   root: {
@@ -30,10 +30,10 @@ const CustomTableCell = withStyles(theme => ({
       backgroundColor: theme.palette.common.black,
       color: theme.palette.common.white,
     },
-    body: {
+    body: { 
       fontSize: 14,
     },
-  }))(TableCell);
+}))(TableCell);
 
 
 // let id = 0;
@@ -54,12 +54,10 @@ const CustomTableCell = withStyles(theme => ({
 class DataGrid extends React.Component{
   constructor(){
     super()
-    this.states = {
-      GridData : DataStore.getAllData()
-    };
+   
   }
   render(){
-    const { classes } = this.states;
+    const { classes } = this.props;
     return(
       <Table className={classes.table}>
           <TableHead>
@@ -75,9 +73,9 @@ class DataGrid extends React.Component{
             </TableRow>
           </TableHead>
           <TableBody>
-            {this.GridData.map(row => {
+            {DataStore.map(row => {
               return (
-                <TableRow className={classes.row} key={row.id}  onClick={event => this.OpenNewPage(event,row.id)}>
+                <TableRow className={classes.row} key={row.matterNumber}  onClick={event => this.OpenNewPage(event,row.matterNumber)}>
                   <CustomTableCell>{row.matterNumber}</CustomTableCell>
                   <CustomTableCell >{row.matterDescription}</CustomTableCell>
                   <CustomTableCell >{row.clientName}</CustomTableCell>
